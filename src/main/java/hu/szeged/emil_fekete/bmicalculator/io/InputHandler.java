@@ -2,7 +2,6 @@ package hu.szeged.emil_fekete.bmicalculator.io;
 
 import hu.szeged.emil_fekete.bmicalculator.measurement.UnitOfMeasure;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -25,10 +24,11 @@ public class InputHandler {
     }
 
     public UnitOfMeasure handleMass() {
-        System.out.println("Tell me your weight (kg/lb, space separated):");
+        System.out.println("Tell me your weight (kg/lb, eg: 60,5 kg)");
         UnitOfMeasure unitOfMeasure = null;
         try {
-            unitOfMeasure = handleMeasurement(massMeasurementUnits);
+            String input = scanner.nextLine();
+            unitOfMeasure = parseUnitOfMeasure(input, massMeasurementUnits);
         } catch (RuntimeException ex) {
             System.out.println("Received input do not match the expected!");
             handleMass();
@@ -37,10 +37,11 @@ public class InputHandler {
     }
 
     public UnitOfMeasure handleLength() {
-        System.out.println("Tell me your height (m/cm/in/ft space separated):");
+        System.out.println("Tell me your height (m/cm/in/ft eg: 1,78 m )");
         UnitOfMeasure unitOfMeasure = null;
         try {
-            unitOfMeasure = handleMeasurement(massMeasurementUnits);
+            String input = scanner.nextLine();
+            unitOfMeasure = parseUnitOfMeasure(input, lengthMeasurementUnits);
         } catch (RuntimeException ex) {
             System.out.println("Received input do not match the expected!");
             handleLength();
@@ -48,22 +49,11 @@ public class InputHandler {
         return unitOfMeasure;
     }
 
-    private UnitOfMeasure handleMeasurement(Set<UnitOfMeasure> measurementUnits) {
-        String weightInput = scanner.nextLine();
-        UnitOfMeasure measure = null;
-        try {
-            measure = parseUnitOfMeasure(weightInput, measurementUnits);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("Try again:");
-        }
-        return measure;
-    }
 
-    public UnitOfMeasure parseUnitOfMeasure(String input, Set<UnitOfMeasure> measurementUnits) throws IOException {
-        Scanner scanner = new Scanner(input);
-        double value = scanner.nextDouble();
-        String symbol = scanner.next();
+    private UnitOfMeasure parseUnitOfMeasure(String input, Set<UnitOfMeasure> measurementUnits) {
+        Scanner inputScanner = new Scanner(input);
+        double value = inputScanner.nextDouble();
+        String symbol = inputScanner.next();
         UnitOfMeasure unitOfMeasure = null;
         for (UnitOfMeasure massUnit : measurementUnits) {
             if (massUnit.getSymbol().equals(symbol.toLowerCase().trim())) {
@@ -73,7 +63,7 @@ public class InputHandler {
             }
         }
         if (unitOfMeasure == null) {
-            throw new IOException("Could not parse the input!");
+            throw new RuntimeException("Could not match the measurement units symbol to supported ones");
         }
         return unitOfMeasure;
     }
