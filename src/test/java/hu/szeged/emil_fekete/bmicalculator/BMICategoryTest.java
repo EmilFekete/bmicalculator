@@ -1,6 +1,6 @@
 package hu.szeged.emil_fekete.bmicalculator;
 
-import junit.framework.TestCase;
+import hu.szeged.emil_fekete.bmicalculator.bmi.BMICategory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by Josy on 2017.11.02..
  */
 @RunWith(Parameterized.class)
-public class BMICategoryTest extends TestCase {
+public class BMICategoryTest {
 
 
     @Parameterized.Parameter(value = 0)
@@ -69,13 +69,4 @@ public class BMICategoryTest extends TestCase {
         whenGettingTheBMICategory();
         thenTheResultingBMICategoryIs(null);
     }
-
-
-    public void setUp() throws Exception {
-        super.setUp();
-    }
-
-    public void tearDown() throws Exception {
-    }
-
 }

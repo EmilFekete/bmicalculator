@@ -3,7 +3,7 @@ package hu.szeged.emil_fekete.bmicalculator.measurement;
 /**
  * Created by Josy on 2017.11.02..
  */
-public abstract class UnitOfMeasure {
+public class UnitOfMeasure {
     protected final String symbol;
     protected final String name;
     protected final double metricEquivalentWithoutPrefix;
@@ -21,6 +21,15 @@ public abstract class UnitOfMeasure {
         this.type = type;
         this.value = value;
     }
+
+    public UnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.symbol = unitOfMeasure.symbol;
+        this.name = unitOfMeasure.name;
+        this.metricEquivalentWithoutPrefix = unitOfMeasure.metricEquivalentWithoutPrefix;
+        this.type = unitOfMeasure.type;
+        this.value = unitOfMeasure.value;
+    }
+
 
     public String getSymbol() {
         return symbol;

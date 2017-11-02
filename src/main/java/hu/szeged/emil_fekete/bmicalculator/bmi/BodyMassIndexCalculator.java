@@ -1,4 +1,4 @@
-package hu.szeged.emil_fekete.bmicalculator;
+package hu.szeged.emil_fekete.bmicalculator.bmi;
 
 import hu.szeged.emil_fekete.bmicalculator.measurement.UnitOfMeasure;
 
